@@ -1,0 +1,47 @@
+{
+    "name": "hxc/laravelgenerate",
+    "description": "laravel框架后端生成工具",
+    "type": "library",
+    "authors": [
+        {
+            "name": "hxc",
+            "email": "3365997294@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "^5.5||~6.0||^7.0",
+        "maatwebsite/excel": "^3.1",
+        "overtrue/easy-sms": "^1.1",
+        "overtrue/laravel-lang": "~3.0",
+        "predis/predis": "^1.1",
+        "spatie/laravel-permission": "^3.11",
+        "tymon/jwt-auth": "^1.0",
+        "yansongda/laravel-pay": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "HXC\\LaravelGenerate\\": "src/"
+        }
+    },
+    "extra": {
+         "laravel": {
+             "providers": [
+                 "HXC\\LaravelGenerate\\ServiceProvider"
+             ],
+             "aliases": {
+                 "HXCLaravelGenerate": "HXC\\LaravelGenerate\\Facade"
+             }
+         }
+    },
+    "scripts": {
+        "post-package-install": [
+            "@php artisan lang:publish zh-CN",
+            "@php artisan vendor:publish --tag=hxc-generate-config",
+            "@php artisan vendor:publish --tag=hxc-generate-functions",
+            "@php artisan vendor:publish --provider=\"Yansongda\\LaravelPay\\PayServiceProvider\" --tag=laravel-pay",
+            "@php artisan vendor:publish --provider=\"Tymon\\JWTAuth\\Providers\\LaravelServiceProvider\"",
+            "@php artisan vendor:publish --provider=\"Spatie\\Permission\\PermissionServiceProvider\""
+        ]
+    }
+}
