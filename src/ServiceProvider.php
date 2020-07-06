@@ -1,9 +1,9 @@
 <?php
 namespace HXC\LaravelGenerate;
 
-use HXC\LaravelGenerate\commands\curd;
-use HXC\LaravelGenerate\commands\makeRepository;
-use HXC\LaravelGenerate\controller\generateController;
+use HXC\LaravelGenerate\Commands\Curd;
+use HXC\LaravelGenerate\commands\MakeRepository;
+use HXC\LaravelGenerate\Controller\GenerateController;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ServiceProvider extends LaravelServiceProvider
@@ -33,15 +33,15 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        $this->app->make(generateController::class);
+        $this->app->make(GenerateController::class);
         $this->app->singleton(TestController::class,function($app){
             return new TestController();
         });
         $this->app->alias(TestController::class,'HXCLaravelGenerate');
         if($this->app->runningInConsole()){
             $this->commands([
-                curd::class,
-                makeRepository::class
+                Curd::class,
+                MakeRepository::class
             ]);
         }
     }
